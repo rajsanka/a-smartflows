@@ -1,0 +1,36 @@
+name:   ShoppingCartFlow
+defaultEnable: all
+primeData:
+    - org.xchg.online.ecommerce.Cart
+    - org.xchg.online.ecommerce.CartItem
+events:
+    - org.xchg.online.ecommerce.AddToCart
+    - org.xchg.online.ecommerce.RemoveFromCart
+    - org.xchg.online.ecommerce.GetCartItems
+responses:
+    - org.xchg.online.ecommerce.StatusMessage
+    - org.xchg.online.ecommerce.CartDetails
+transitions:
+    - org.xchg.online.ecommerce.CartManager
+keys:
+    - data: org.xchg.online.ecommerce.CartItem
+      key: itemID
+features:
+    - name: all
+      artefacts:
+        - org.xchg.online.ecommerce.Cart
+        - org.xchg.online.ecommerce.CartItem
+        - org.xchg.online.ecommerce.AddToCart
+        - org.xchg.online.ecommerce.CartManager
+        - org.xchg.online.ecommerce.StatusMessage
+        - org.xchg.online.ecommerce.CartDetails
+        - org.xchg.online.ecommerce.RemoveFromCart
+        - org.xchg.online.ecommerce.GetCartItems
+links:
+    - from: CartItem.cartName
+      to: Cart.cartName
+needlinks:
+    - name: itemlink
+      from: CartItem.actualItem
+      via: AddToCart.cartItem
+

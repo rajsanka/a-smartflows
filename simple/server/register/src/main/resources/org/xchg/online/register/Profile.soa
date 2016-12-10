@@ -1,0 +1,21 @@
+name:   Profile
+type:   PrimeData
+flow:   ProfileFlow
+attributes:
+    - attribute:    email
+      type:         key
+states:
+    - name:         unverified
+      startState:   true
+    - name:         active
+      startState:   false
+    - name:         inactive
+      endState:     true
+security:
+    - name:     createaccess
+      type:     unauthenticated
+      access:   execute
+      parm:     Register,Verify
+    - name:     roleaccess
+      type:     smartrole
+      access:   execute

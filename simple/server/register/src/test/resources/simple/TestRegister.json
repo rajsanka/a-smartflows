@@ -1,0 +1,14 @@
+tests:
+    - event: Register
+      postto:
+        type:   FlowAdmin
+        value:  ProfileFlow
+      postdata: 
+        name: "Raji Sankar"
+        email: "rsankarx@yahoo.com"
+        password: "password"
+        phone: "9902530998"
+        defaultCity: "Bangalore"
+      test:
+        message: "Please Verify your registration to proceed."
+

@@ -1,0 +1,38 @@
+name:   RegistrationManager
+type:   Transition
+flow:   ProfileFlow
+foreach:        FlowAdmin|Register,Profile|Verify
+actions:
+    - name:      registerProfile
+      method:    registerProfile
+      foreach:   FlowAdmin|Register
+      parms:     (event,srch.ProfileFlow.Profile.event.email)
+      from:      active
+      to:        active
+    - name:      verifyProfile
+      method:    verifyProfile
+      foreach:   Profile|Verify
+      from:      unverified
+      to:        active
+callservices:
+    - name:      createUser
+      service:   Security.ManageUsers.createUserService
+      parms:     (data.email, event.password, data.roles)
+      runAfter:  verifyProfile
+      foreach:   Profile|Verify
+      from:      unverified
+      to:        active
+    - name:      addIdentity
+      service:   Security.ManageUsers.addIdentityService
+      parms:     (txn.SmartUser, data.email, data.email, event.password, event.identityType)
+      runAfter:  createUser
+      foreach:   Profile|Verify
+      from:      unverified
+      to:        active
+    #- name:      sendSMS
+    #  service:   AllFlows.TransitionServices.sendSMS
+    #  parms:     (event.SMSmsg)
+    #  runAfter:  registerProfile
+    #  foreach:   FlowAdmin|Register
+    #  from:      active
+    #  to:        active

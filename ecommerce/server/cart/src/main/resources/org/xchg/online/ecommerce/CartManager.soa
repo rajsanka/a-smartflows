@@ -1,0 +1,25 @@
+name:       CartManager
+type:       Transition
+flow:       ShoppingCartFlow
+foreach:        Cart|AddToCart,CartItem|RemoveFromCart,Cart|GetCartItems
+actions:
+    - name:     addToCart
+      method:   addToCart
+      foreach:  Cart|AddToCart
+      from:     empty,added
+      to:       added
+    - name:     removeFromCart
+      method:   removeFromCart
+      foreach:  CartItem|RemoveFromCart
+      from:     active
+      to:       inactive
+    - name:     getCartItems
+      method:   getCartItems
+      foreach:  Cart|GetCartItems
+      from:     added
+      to:       added
+services:
+    - name:     setupMessage
+      method:   setupMessage
+    - name:     getCartItemsService
+      method:   getCartItemsService

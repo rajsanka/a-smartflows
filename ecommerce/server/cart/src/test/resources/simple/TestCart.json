@@ -1,0 +1,20 @@
+tests:
+    - event: CreatePrime
+      postto:
+        type:   FlowAdmin
+        value:  ShoppingCartFlow
+      postdata: 
+        create: "Cart"
+        data:
+            cartName: cart1
+      test:
+        success: "Done Object for: Cart created."
+    - event: AddToCart
+      postto:
+        type:   Cart
+        value:  cart1
+      postdata: 
+        cartItem: "product1"
+      test:
+        message: "Added item to cart: cart1"
+

@@ -1,0 +1,13 @@
+tests:
+    - event:    CreateRole
+      postto:
+        type:   FlowAdmin
+        value:  Security
+      postdata:
+        roleName:   userrole
+        permits:
+            "/ProfileFlow/all": execute
+            "/TrackFlow/all": execute
+      test:
+        message:    "Created a role for: userrole"
+              

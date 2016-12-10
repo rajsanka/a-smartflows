@@ -1,0 +1,23 @@
+name:   ProfileFlow
+defaultEnable: all
+primeData:
+    - org.xchg.online.register.Profile
+events:
+    - org.xchg.online.register.Register
+    - org.xchg.online.register.Verify
+responses:
+    - org.xchg.online.register.MessageResponse
+transitions:
+    - org.xchg.online.register.RegistrationManager
+features:
+    - name: all
+      artefacts:
+        - org.xchg.online.register.Profile
+        - org.xchg.online.register.Register
+        - org.xchg.online.register.Verify
+        - org.xchg.online.register.MessageResponse
+        - org.xchg.online.register.RegistrationManager
+security:
+    - name: regunsecure
+      parms: Register,Verify,MessageResponse,SendVerify
+      guardtype: unauthenticated
