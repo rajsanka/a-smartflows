@@ -1,0 +1,4 @@
+name:       SendVerifyEmail
+type:       Message
+flow:       ProfileFlow
+postflowadmin:  true

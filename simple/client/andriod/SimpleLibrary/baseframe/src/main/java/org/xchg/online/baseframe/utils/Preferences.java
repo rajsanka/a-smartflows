@@ -13,6 +13,9 @@ public interface Preferences {
     public static final String PREFS_LOGIN = "loggedin_user_id";
     public static final String KEY_LOGGED_IN_EMAIL = "loggedin_user_id_key";
     public static final String SESSION_ID = "session_id";
+    public static final String PREFS_PROFILE = "loggedin_profile";
+    public static final String KEY_LOGGED_IN_NAME = "loggedin_user_name";
+    public static final String KEY_LOGGED_IN_PHONE = "loggedin_user_phone";
 
     public static final String DEVICE_DETAILS = "device_details";
     public static final String DEVICE_CREATED = "device_created";

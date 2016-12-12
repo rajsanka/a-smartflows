@@ -1,7 +1,7 @@
 name:   RegistrationManager
 type:   Transition
 flow:   ProfileFlow
-foreach:        FlowAdmin|Register,Profile|Verify
+foreach:        FlowAdmin|Register,Profile|Verify,FlowAdmin|SendVerifyEmail
 actions:
     - name:      registerProfile
       method:    registerProfile
@@ -28,6 +28,12 @@ callservices:
       runAfter:  createUser
       foreach:   Profile|Verify
       from:      unverified
+      to:        active
+    - name:      sendEmail
+      service:   AllFlows.TransitionServices.sendEmailService
+      parms:     (event.email,event.subject,event.message)
+      foreach:   FlowAdmin|SendVerifyEmail
+      from:      active
       to:        active
     #- name:      sendSMS
     #  service:   AllFlows.TransitionServices.sendSMS

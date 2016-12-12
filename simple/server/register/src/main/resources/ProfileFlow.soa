@@ -5,6 +5,8 @@ primeData:
 events:
     - org.xchg.online.register.Register
     - org.xchg.online.register.Verify
+messages:
+    - org.xchg.online.register.SendVerifyEmail
 responses:
     - org.xchg.online.register.MessageResponse
 transitions:
@@ -17,7 +19,8 @@ features:
         - org.xchg.online.register.Verify
         - org.xchg.online.register.MessageResponse
         - org.xchg.online.register.RegistrationManager
+        - org.xchg.online.register.SendVerifyEmail
 security:
     - name: regunsecure
-      parms: Register,Verify,MessageResponse,SendVerify
+      parms: Register,Verify,MessageResponse,SendVerifyEmail
       guardtype: unauthenticated

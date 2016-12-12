@@ -58,5 +58,8 @@ public class Register implements java.io.Serializable
     {
         return ((existing != null) && (existing.isVerified()));
     }
+
+    public String getEmail() { return email; }
+    public String getName() { return name; }
 }
 

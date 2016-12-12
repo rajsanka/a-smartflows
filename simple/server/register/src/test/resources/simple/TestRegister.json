@@ -5,7 +5,7 @@ tests:
         value:  ProfileFlow
       postdata: 
         name: "Raji Sankar"
-        email: "rsankarx@yahoo.com"
+        email: "rsankarx@gmail.com"
         password: "password"
         phone: "9902530998"
         defaultCity: "Bangalore"

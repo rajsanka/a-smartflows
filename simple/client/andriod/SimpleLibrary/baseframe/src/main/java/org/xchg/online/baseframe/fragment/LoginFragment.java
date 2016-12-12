@@ -48,6 +48,9 @@ import org.xchg.online.baseframe.utils.Utilities;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Map;
+
+import xchg.online.register.LookupEvent;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,6 +96,32 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    public static class ProfileListener implements LookupEvent.LookupProfileListener {
+
+        private Context _context;
+
+        ProfileListener(Context ctx) {
+            _context = ctx;
+        }
+
+        @Override
+        public void onProfile(Map data) {
+
+            if (data == null) return;
+
+            String email = data.get("email").toString();
+            String name = data.get("name").toString();
+            String phone = data.get("phone").toString();
+
+            SessionManager.storeProfile(_context, email, name, phone);
+        }
+
+        @Override
+        public void onError(String msg) {
+
+        }
+    }
+
     public static class LoginRequestListener implements SmartResponseListener {
         private Context _context;
         private LoginFragment _fragment;
@@ -105,6 +134,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         public void handleResponse(List responses) {
             SessionManager.storeSession(_context, _fragment.mUserEmail, SmartSecurity.getLastSessionId());
             SmartSecurity.getPermittedFeatures((Activity) _context, new FeaturesRequestListener(_context, _fragment));
+
+            LookupEvent event = new LookupEvent(_fragment.mUserEmail);
+            event.postTo((Activity) _context, new ProfileListener(_context));
         }
 
         public void handleError(double code, String context) {

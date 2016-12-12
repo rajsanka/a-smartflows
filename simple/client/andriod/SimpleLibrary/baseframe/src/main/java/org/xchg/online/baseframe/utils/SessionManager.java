@@ -47,6 +47,28 @@ public class SessionManager {
         prefsLoggedInUser.edit().putBoolean(Preferences.IS_LOGIN, true).apply();
     }
 
+    public static void storeProfile(Context ctx, String email, String name, String phone) {
+        SharedPreferences prefsLoggedInUser = ctx.getSharedPreferences(Preferences.PREFS_PROFILE, Context.MODE_PRIVATE);
+        prefsLoggedInUser.edit().putString(Preferences.KEY_LOGGED_IN_EMAIL, email).apply();
+        prefsLoggedInUser.edit().putString(Preferences.KEY_LOGGED_IN_NAME, name).apply();
+        prefsLoggedInUser.edit().putString(Preferences.KEY_LOGGED_IN_PHONE, phone).apply();
+    }
+
+    public static String getProfileName(Context ctx) {
+        SharedPreferences prefsLoggedInUser = ctx.getSharedPreferences(Preferences.PREFS_PROFILE, Context.MODE_PRIVATE);
+        return prefsLoggedInUser.getString(Preferences.KEY_LOGGED_IN_NAME, null);
+    }
+
+    public static String getProfilePhone(Context ctx) {
+        SharedPreferences prefsLoggedInUser = ctx.getSharedPreferences(Preferences.PREFS_PROFILE, Context.MODE_PRIVATE);
+        return prefsLoggedInUser.getString(Preferences.KEY_LOGGED_IN_PHONE, null);
+    }
+
+    public static String getProfileEmail(Context ctx) {
+        SharedPreferences prefsLoggedInUser = ctx.getSharedPreferences(Preferences.PREFS_PROFILE, Context.MODE_PRIVATE);
+        return prefsLoggedInUser.getString(Preferences.KEY_LOGGED_IN_EMAIL, null);
+    }
+
     public static void setupSmartCommunicator(Context ctx) {
         if (isLoggedIn(ctx)) {
             SharedPreferences prefsLoggedInUser = ctx.getSharedPreferences(Preferences.PREFS_LOGIN, Context.MODE_PRIVATE);
