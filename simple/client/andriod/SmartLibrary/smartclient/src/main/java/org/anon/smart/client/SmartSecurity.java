@@ -106,6 +106,8 @@ public class SmartSecurity {
         public void handleResponse(List responses) {
             Map access = (Map) responses.get(0);
 
+            String roleName = access.get("roleName").toString();
+            _custom.handleRoleName(roleName);
             Map features = (Map)access.get("features");
             Boolean allpermitted = (Boolean) access.get("allPermitted");
             if (allpermitted == null) allpermitted = Boolean.FALSE;
@@ -131,6 +133,7 @@ public class SmartSecurity {
     }
 
     public static interface FeaturesListener extends SmartResponseListener {
+        public void handleRoleName(String roleName);
         public void handleAllPermitted();
         public void handleFeature(String feature, String permit);
     }

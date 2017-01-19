@@ -76,11 +76,11 @@ public class RegistrationManager
             return false;
         }
 
+        verify.setup();
         profile.verify(verify.getCode());
         if (profile.isVerified())
         {
             MessageResponse resp = new MessageResponse("Successfully verified the phone. Please login.");
-            verify.setup();
             return true;
         }
 

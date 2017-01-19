@@ -31,7 +31,7 @@ callservices:
       to:        active
     - name:      sendEmail
       service:   AllFlows.TransitionServices.sendEmailService
-      parms:     (event.email,event.subject,event.message)
+      parms:     (event.email,event.ccemail,event.subject,event.message)
       foreach:   FlowAdmin|SendVerifyEmail
       from:      active
       to:        active

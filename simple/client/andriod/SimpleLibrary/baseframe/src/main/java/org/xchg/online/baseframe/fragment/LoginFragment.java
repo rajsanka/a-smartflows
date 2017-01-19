@@ -72,6 +72,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             _fragment = fragment;
         }
 
+        @Override
+        public void handleRoleName(String role) {
+            SessionManager.storeRoleName(_context, role);
+        }
+
         public void handleAllPermitted(){
             SessionManager.markAllPermitted(_context);
         }
@@ -135,8 +140,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             SessionManager.storeSession(_context, _fragment.mUserEmail, SmartSecurity.getLastSessionId());
             SmartSecurity.getPermittedFeatures((Activity) _context, new FeaturesRequestListener(_context, _fragment));
 
-            LookupEvent event = new LookupEvent(_fragment.mUserEmail);
-            event.postTo((Activity) _context, new ProfileListener(_context));
+            if (_fragment.readProfile()) {
+                LookupEvent event = new LookupEvent(_fragment.mUserEmail);
+                event.postTo((Activity) _context, new ProfileListener(_context));
+            }
         }
 
         public void handleError(double code, String context) {
@@ -156,6 +163,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
+    public boolean readProfile() {
+        return true;
+    }
+
     private static final String TAG = LoginFragment.class.getSimpleName();
     private static final int RC_SIGN_IN = 9001;
 
@@ -166,13 +177,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     private String mUserEmail;
     private String mUserPassword;
     private LoginListener mActListener;
-    private static LoginFragment mLoginFragment;
+    protected static LoginFragment mLoginFragment;
     private String mRegid;
     private ProgressListener mPDialogListener;
     private boolean mIsResolving = false;
     private boolean mIsInputChanged = false;
 
-    private LoginRequestListener _requestListener;
+    protected LoginRequestListener _requestListener;
 
 
     public static LoginFragment newInstance(Bundle bundle) {
@@ -244,10 +255,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         mRegid = prefs.getString(BaseFrameConstants.DEVICE_REG_ID_PREF_KEY, null);
 
         if (TextUtils.isEmpty(mUserEmail)) {
-            mUserEmailTv.setError("Please enter email");
+            mUserEmailTv.requestFocus();
+            mUserEmailTv.setError(getResources().getString(R.string.error_email));
         /*} else if (!Utilities.validateEmail(mUserEmail)) {
+            mUserEmailTv.requestFocus();
             mUserEmailTv.setError("Please enter valid email address");*/
         } else if (TextUtils.isEmpty(mUserPassword)) {
+            mUserPasswordTv.requestFocus();
             mUserPasswordTv.setError("Please enter password");
         } else {
             SmartSecurity.autheticate(mParentActivity, mUserEmail, mUserPassword, _requestListener);
@@ -593,6 +607,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String tag, Object data);
     }
 }

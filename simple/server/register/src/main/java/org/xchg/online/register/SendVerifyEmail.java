@@ -22,12 +22,14 @@ public class SendVerifyEmail implements java.io.Serializable
     private String email;
     private String subject;
     private String message;
+    private String ccemail;
 
     public SendVerifyEmail(String e, String s, String msg)
     {
         email = e;
         subject = s;
         message = msg;
+        ccemail = null;
     }
 }
 

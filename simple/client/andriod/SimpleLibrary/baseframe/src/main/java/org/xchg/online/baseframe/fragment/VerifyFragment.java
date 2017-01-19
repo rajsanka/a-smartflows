@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -79,18 +80,33 @@ public class VerifyFragment extends Fragment implements View.OnClickListener, Ve
         return rootView;
     }
 
+    private void hideKeyboard() {
+        View view = mParentActivity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) mParentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
     public void verifyUser() {
+        hideKeyboard();
         if (TextUtils.isEmpty(mEmail.getText())) {
+            mEmail.requestFocus();
             mEmail.setError("Please enter email");
         } else if (!Utilities.validateEmail(mEmail.getText().toString())) {
+            mEmail.requestFocus();
             mEmail.setError("Please enter valid email address");
         } else if (TextUtils.isEmpty(mVerifyCode.getText())) {
+            mVerifyCode.requestFocus();
             mVerifyCode.setError("Please enter the code");
         } else if (TextUtils.isEmpty(mPassword.getText())) {
+            mPassword.requestFocus();
             mPassword.setError("Please select a password");
         } else if (TextUtils.isEmpty(mConfirmPassword.getText())) {
+            mConfirmPassword.requestFocus();
             mConfirmPassword.setError("Please confirm the password");
         } else if (!mConfirmPassword.getText().toString().equals(mPassword.getText().toString())) {
+            mConfirmPassword.requestFocus();
             mConfirmPassword.setError("Passwords do not match. Please enter same password.");
         } else {
             String email = mEmail.getText().toString();
@@ -152,7 +168,7 @@ public class VerifyFragment extends Fragment implements View.OnClickListener, Ve
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String tag, Object data);
     }
 
     public void onSuccess() {

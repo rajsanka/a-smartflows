@@ -47,11 +47,21 @@ public class SessionManager {
         prefsLoggedInUser.edit().putBoolean(Preferences.IS_LOGIN, true).apply();
     }
 
+    public static void storeRoleName(Context ctx, String role) {
+        SharedPreferences prefsLoggedInUser = ctx.getSharedPreferences(Preferences.PREFS_LOGIN, Context.MODE_PRIVATE);
+        prefsLoggedInUser.edit().putString(Preferences.ROLE_NAME, role).apply();
+    }
+
     public static void storeProfile(Context ctx, String email, String name, String phone) {
         SharedPreferences prefsLoggedInUser = ctx.getSharedPreferences(Preferences.PREFS_PROFILE, Context.MODE_PRIVATE);
         prefsLoggedInUser.edit().putString(Preferences.KEY_LOGGED_IN_EMAIL, email).apply();
         prefsLoggedInUser.edit().putString(Preferences.KEY_LOGGED_IN_NAME, name).apply();
         prefsLoggedInUser.edit().putString(Preferences.KEY_LOGGED_IN_PHONE, phone).apply();
+    }
+
+    public static String getRoleName(Context ctx) {
+        SharedPreferences prefsLoggedInUser = ctx.getSharedPreferences(Preferences.PREFS_LOGIN, Context.MODE_PRIVATE);
+        return prefsLoggedInUser.getString(Preferences.ROLE_NAME, null);
     }
 
     public static String getProfileName(Context ctx) {

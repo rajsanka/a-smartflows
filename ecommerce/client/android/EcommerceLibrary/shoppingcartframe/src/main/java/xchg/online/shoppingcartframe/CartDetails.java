@@ -113,7 +113,7 @@ public class CartDetails extends Fragment implements ShoppingCart.CartDisplayUpd
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
-        retrieveCartItems();
+        //retrieveCartItems();
 
         return rootView;
     }

@@ -48,7 +48,7 @@ public class Profile implements java.io.Serializable
 
     public String generateVerificationCode()
     {
-        verificationCode = RandomStringUtils.randomAscii(10);
+        verificationCode = RandomStringUtils.randomAlphanumeric(10);
         return verificationCode;
     }
 

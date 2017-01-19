@@ -24,6 +24,7 @@ public interface Preferences {
     public static final String ALL_PERMITTED = "all_permitted";
     public static final String FEATURES_PERMITTED = "features_permitted";
     public static final String IS_LOGIN = "IsLoggedIn";
+    public static final String ROLE_NAME = "roleName";
 
 
     //Search last locality

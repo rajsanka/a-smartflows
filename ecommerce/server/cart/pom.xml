@@ -47,11 +47,11 @@
                             <tenant>simple</tenant>
                             <files>**.cfg1</files>
                         </TestConfig>-->
-                        <TestConfig>
+                        <!--<TestConfig>
                             <testuser>bengalexclusiveadmin</testuser>
                             <testpassword>bengalexclusiveadmin</testpassword>
                             <files>simple/**.json</files>
-                        </TestConfig>
+                        </TestConfig>-->
                     </tests>
                 </configuration>
             </plugin>

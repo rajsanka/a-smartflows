@@ -80,8 +80,9 @@ public class CartDetailsAdapter extends RecyclerView.Adapter<CartDetailsAdapter.
                 images.add("https://placeholdit.imgix.net/~text?txtsize=9&txt=100%C3%97100&w=100&h=100");
             }
 
-            AsychImageDownload download = new AsychImageDownload(images.get(0), holder.productImage, this);
-            download.execute();
+            AsychImageDownload download = new AsychImageDownload(images.get(0), holder.productImage, this, 4);
+            download.queue();
+            download.startProcessing();
 
             holder.productTitle.setText(object.getItem().getProductId());
             holder.productDescription.setText(object.getItem().getDescription());

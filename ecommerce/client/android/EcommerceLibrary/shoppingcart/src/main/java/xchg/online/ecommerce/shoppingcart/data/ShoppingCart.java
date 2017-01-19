@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,8 @@ import xchg.online.ecommerce.shoppingcart.GetCartItems;
  */
 
 public class ShoppingCart {
+
+    private static final String TAG = ShoppingCart.class.getSimpleName();
 
     class MyCartAddListener implements AddToCart.AddToCartListener {
 
@@ -79,7 +82,10 @@ public class ShoppingCart {
 
         @Override
         public void onError(String msg) {
-            if (!msg.contains("empty")) {
+            if (msg.contains("Cannot find object")) {
+                Log.d(TAG, "Cannot find cart: " + msg + " recreating cart.");
+                createNewCart(newCartName);
+            } else if (!msg.contains("empty")) {
                 retriever.handleError(msg);
             }
         }
@@ -99,6 +105,7 @@ public class ShoppingCart {
     private static final String CART_NAME = "cartName";
 
     private Activity mContext;
+    private String newCartName;
     private String cartName;
     private int itemCount;
     private double totalPrice;
@@ -119,6 +126,8 @@ public class ShoppingCart {
         String storedcn = prefsLoggedInUser.getString(CART_NAME, null);
         addListener = new MyCartAddListener();
         items = new ArrayList<>();
+        newCartName = cn;
+        Log.d(TAG, "Got stored cart name as: " + storedcn);
         if (storedcn == null) {
             createNewCart(cn);
         } else {
@@ -129,6 +138,7 @@ public class ShoppingCart {
     }
 
     public void createNewCart(String cn) {
+        Log.d(TAG, "Creating cart for: " + cn);
         cartName = cn;
         cartCreated = false;
         createCartListener = new MyCreateCartListener();
@@ -147,6 +157,8 @@ public class ShoppingCart {
     }
 
     public void startNewCart(String cn) {
+        Log.d(TAG, "New cart requested. Creating cart for: " + cn);
+
         SharedPreferences prefsLoggedInUser = mContext.getSharedPreferences(PREFS_SHOPPINGCART, Context.MODE_PRIVATE);
         prefsLoggedInUser.edit().remove(CART_NAME).apply();
         cartCreated = false;
@@ -196,4 +208,9 @@ public class ShoppingCart {
     }
 
     public String getCartName() { return cartName; }
+
+    public void clearCartSave() {
+        SharedPreferences prefsLoggedInUser = mContext.getSharedPreferences(PREFS_SHOPPINGCART, Context.MODE_PRIVATE);
+        prefsLoggedInUser.edit().remove(CART_NAME).apply();
+    }
 }

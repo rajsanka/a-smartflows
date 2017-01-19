@@ -35,29 +35,29 @@
                     <addJars>${project.parent.basedir}/utils/target/utils-1.0-SNAPSHOT.jar,${project.basedir}/target/register-1.0-SNAPSHOT.jar</addJars>
                     <features>all</features>
                     <tests>
-                        <!--<TestConfig>
+                        <TestConfig>
                             <testuser>smartadmin</testuser>
                             <testpassword>smartadmin</testpassword>
                             <flow>AdminSmartFlow</flow>
                             <tenant>SmartOwner</tenant>
                             <runasadmin>true</runasadmin>
                             <files>**.cfg</files>
-                        </TestConfig>-->
-                        <!--<TestConfig>
+                        </TestConfig>
+                        <TestConfig>
                             <testuser>bengalexclusiveadmin</testuser>
                             <testpassword>bengalexclusiveadmin</testpassword>
                             <flow>Security</flow>
                             <tenant>bengalexclusive</tenant>
                             <files>**.cfg1</files>
-                        </TestConfig>-->
+                        </TestConfig>
                         <!--<TestConfig>
                             <testuser>bengalexclusiveadmin</testuser>
                             <testpassword>bengalexclusiveadmin</testpassword>
                             <files>simple/**.config</files>
                         </TestConfig>-->
-                        <TestConfig>
+                        <!--<TestConfig>
                             <files>simple/**.json</files>
-                        </TestConfig>
+                        </TestConfig>-->
                     </tests>
                 </configuration>
             </plugin>

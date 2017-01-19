@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -105,14 +106,19 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void registerUser() {
+        hideKeyboard();
         if (TextUtils.isEmpty(mEmail.getText())) {
+            mEmail.requestFocus();
             mEmail.setError("Please enter email");
         } else if (!Utilities.validateEmail(mEmail.getText().toString())) {
+            mEmail.requestFocus();
             mEmail.setError("Please enter valid email address");
         } else if (TextUtils.isEmpty(mName.getText())) {
+            mName.requestFocus();
             mName.setError("Please enter name");
         } else if (TextUtils.isEmpty(mPhone.getText())) {
-            mName.setError("Please enter phone");
+            mPhone.requestFocus();
+            mPhone.setError("Please enter phone");
         } else {
             String email = mEmail.getText().toString();
             String name = mName.getText().toString();
@@ -126,6 +132,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
 
             mPDialogListener.onProgress();
             register.postTo(mParentActivity, this);
+        }
+    }
+
+    private void hideKeyboard() {
+        View view = mParentActivity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputManager = (InputMethodManager) mParentActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
@@ -156,7 +170,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener, 
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onFragmentInteraction(String tag, Object data);
     }
 
     public void onSuccess(String email) {

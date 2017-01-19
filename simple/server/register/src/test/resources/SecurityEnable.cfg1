@@ -7,7 +7,10 @@ tests:
         roleName:   userrole
         permits:
             "/ProfileFlow/all": execute
-            "/TrackFlow/all": execute
+            "/ShoppingCartFlow/all": execute
+            "/CatalogueFlow/all": execute
+            "/AllFlows/all": execute
+            "/Security/standard": execute
       test:
         message:    "Created a role for: userrole"
               

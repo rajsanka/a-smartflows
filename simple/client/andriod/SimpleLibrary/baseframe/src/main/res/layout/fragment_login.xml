@@ -11,7 +11,8 @@
         android:background="@null"
         android:orientation="vertical"
         android:padding="@dimen/fragment_login_ll_padding"
-        android:weightSum="1">
+        android:weightSum="1"
+        android:clickable="true">
         <ImageView
             android:layout_width="?attr/logoWidth"
             android:layout_height="?attr/logoHeight"
